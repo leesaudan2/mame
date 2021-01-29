@@ -1844,7 +1844,7 @@ std::vector<uint32_t> a2_nib_format::generate_levels_from_nibbles(const std::vec
 	const auto wrapped_FF_count = leading_FF_count + trailing_FF_count;
 	const bool wrapped_FF_are_syncs = wrapped_FF_count >= min_sync_bytes;
 
-	if (wrapped_FF_are_syncs) {
+	if (wrapped_FF_are_syncs) { [[likely]]
 		append_syncs(leading_FF_count);
 	} else {
 		append_FFs(leading_FF_count);
@@ -1857,7 +1857,7 @@ std::vector<uint32_t> a2_nib_format::generate_levels_from_nibbles(const std::vec
 				return;
 			}
 
-			if (FF_count >= a2_nib_format::min_sync_bytes) {
+			if (FF_count >= a2_nib_format::min_sync_bytes) { [[likely]]
 				append_syncs(FF_count);
 			} else {
 				append_FFs(FF_count);
@@ -1883,7 +1883,7 @@ std::vector<uint32_t> a2_nib_format::generate_levels_from_nibbles(const std::vec
 		flush_FFs();
 	}
 
-	if (wrapped_FF_are_syncs) {
+	if (wrapped_FF_are_syncs) { [[likely]]
 		append_syncs(trailing_FF_count);
 	} else {
 		append_FFs(trailing_FF_count);
